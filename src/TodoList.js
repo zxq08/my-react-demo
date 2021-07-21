@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import TodoListUI from './TodoListUI';
 import store from './store'
 import { changeInputAction, addItemAction, deleteItemAction } from './store/actionCreators'
+import axios from 'axios';
+
+const baseApiUrl = "https://www.fastmock.site/mock/e80eb75e8f763120ff49926b19d09b4a/api"
 
 class TodoList extends Component {
     constructor(props) {
@@ -12,6 +15,13 @@ class TodoList extends Component {
         this.deleteItem = this.deleteItem.bind(this)
         this.storeChange = this.storeChange.bind(this)
         store.subscribe(this.storeChange) //订阅Redux的状态
+    }
+
+    componentDidMount() {
+        const url = baseApiUrl + "/getList"
+        axios.get(url).then(res => {
+            console.log(res)
+        })
     }
 
     render() { 
